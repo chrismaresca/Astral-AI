@@ -11,6 +11,7 @@ Tests for OpenAI Response Models in Astral AI
 # -------------------------------------------------------------------------------- #
 # Built-in imports
 import pytest
+from unittest.mock import patch
 from typing import Dict, List
 
 # Pydantic
@@ -20,13 +21,13 @@ from pydantic import BaseModel
 from openai.types.chat import ChatCompletion, ChatCompletionChunk
 
 # Astral AI imports
-from astral_ai.providers.openai._types import (
+from src.astral_ai.providers.openai._types import (
     OpenAIChatResponseType,
     OpenAIStreamingResponseType,
     OpenAIStructuredResponseType,
     OpenAIResponseType
 )
-
+from src.astral_ai.providers.openai._types._response import OpenAIResponse
 # -------------------------------------------------------------------------------- #
 # Test Data
 # -------------------------------------------------------------------------------- #
@@ -149,22 +150,91 @@ def test_structured_response_handling():
     
     print("\n=== Structured Response Handling Test Completed Successfully ===")
 
-def test_response_type_union(chat_completion_data, streaming_chunk_data):
+
+@pytest.mark.usefixtures("chat_completion_data", "streaming_chunk_data")
+def test_response_type_union():
     """Test that different response types can be used as OpenAIResponseType"""
     print("\n=== Starting Response Type Union Test ===")
-    
+
     def process_response(response: OpenAIResponseType):
         return True
-    
+
+    # Get fixture data
+    chat_data = chat_completion_data()
+    stream_data = streaming_chunk_data()
+
     print("\n--- Creating Different Response Types ---")
-    chat_response = ChatCompletion(**chat_completion_data)
-    streaming_response = ChatCompletionChunk(**streaming_chunk_data)
-    
+    chat_response = ChatCompletion(**chat_data)
+    streaming_response = ChatCompletionChunk(**stream_data)
+
     print("\n--- Running Assertions ---")
     assert process_response(chat_response), "Failed to process chat response"
     print("✓ Chat response processing passed")
-    
+
     assert process_response(streaming_response), "Failed to process streaming response"
     print("✓ Streaming response processing passed")
-    
+
     print("\n=== Response Type Union Test Completed Successfully ===")
+
+# -------------------------------------------------------------------------------- #
+# Additional Tests for OpenAIResponse
+# -------------------------------------------------------------------------------- #
+
+@patch('openai.ChatCompletion.create')  # Mock OpenAI API call
+def test_mocked_openai_response(mock_openai):
+    """Test that OpenAIResponse correctly parses an API response"""
+    print("\n=== Starting OpenAI API Mocked Response Test ===")
+
+    mock_openai.return_value = {
+        "choices": [{"message": {"content": "Test OpenAI response"}}]
+    }
+
+    response_handler = OpenAIResponse()
+    parsed_response = response_handler.parse(mock_openai.return_value)
+
+    print("\n--- Running Assertions ---")
+    assert parsed_response == "Test OpenAI response", "Response parsing failed"
+
+    print("✓ OpenAI API Mocked Response Test Passed")
+
+def test_empty_response_handling():
+    """Test handling of empty API responses"""
+    print("\n=== Starting Empty Response Handling Test ===")
+
+    response_handler = OpenAIResponse()
+    empty_response = {"choices": []}
+
+    print("\n--- Running Assertions ---")
+    assert response_handler.parse(empty_response) == "", "Empty response should return an empty string"
+
+    print("✓ Empty Response Handling Test Passed")
+
+def test_invalid_response_handling():
+    """Test handling of invalid or malformed responses"""
+    print("\n=== Starting Invalid Response Handling Test ===")
+
+    response_handler = OpenAIResponse()
+    malformed_response = {"unexpected_key": "data"}  # Missing 'choices' key
+
+    print("\n--- Running Assertions ---")
+    try:
+        response_handler.parse(malformed_response)
+        assert False, "Expected KeyError but none was raised"
+    except KeyError:
+        print("✓ Invalid Response Handling Test Passed")
+
+def test_partial_response_handling():
+    """Test handling of incomplete API responses"""
+    print("\n=== Starting Partial Response Handling Test ===")
+
+    response_handler = OpenAIResponse()
+    partial_response = {"choices": [{"message": {}}]}  # Missing 'content' key
+
+    print("\n--- Running Assertions ---")
+    assert response_handler.parse(partial_response) == "", "Partial response should return an empty string"
+
+    print("✓ Partial Response Handling Test Passed")
+
+if __name__ == '__main__':
+    print("\n✅ All tests should be run using pytest. Example:")
+    print("   pytest -s test_response.py")
