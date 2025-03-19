@@ -57,19 +57,22 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#why-astral">Why Astral?</a></li>
+        <li><a href="#our-vision">Our Vision</a></li>
       </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#join-the-astral-community">Join the Astral Community!</a></li>
+        <li><a href="#getting-started-contributing">Getting Started Contributing</a></li>
+        <li><a href="#examples">Examples</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <!-- <li><a href="#roadmap">Roadmap</a></li> -->
+    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#found-an-issue">Found an issue?</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#inspiration">Inspiration</a></li>
@@ -122,6 +125,7 @@ This section shows you how to get a local copy up and running. For a more struct
 - Authentication credentials for whatever model providers you're interested in using (i.e API key for OpenAI, API key for Anthropic, etc)
 
 ### 🌌 Join the Astral Community!
+<a id="join-the-astral-community"></a>
 
 Before diving in, make sure to:
 
@@ -137,6 +141,7 @@ Before diving in, make sure to:
    Thanks for helping shape the future of Astral—we can't wait to see what you build!
 
 ### **🚀 Getting Started Contributing**
+<a id="getting-started-contributing"></a>
 
 Ready to build something awesome? Follow these steps:
 
@@ -160,9 +165,8 @@ Ready to build something awesome? Follow these steps:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- Examples -->
-
 ### **🔍 Examples**
+<a id="examples"></a>
 
 Dive into our demos and guides to get a hands-on experience: [Demos](https://www.useastral.dev/docs/guides/quick-start)
 
@@ -171,20 +175,39 @@ Dive into our demos and guides to get a hands-on experience: [Demos](https://www
 <!-- ROADMAP -->
 
 ## **🛤️ Roadmap**
+<a id="roadmap"></a>
 
 See our vision for the future of AI engineering: [Future Vision](https://www.useastral.dev/resources/future-vision) 🌌
 
-See the [open issues](https://github.com/chrismaresca/Astral-AI/issues) for a full list of proposed features (and known issues) 📝.
+See the [open issues](https://github.com/chrismaresca/Astral-AI/issues) for a full list of proposed features (and known issues) 📝. 
+
+If you found a bug or have a feature request? Check out our [Found an issue?](#found-an-issue) section to learn how to contribute.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 
 ## **🤝 Contributing**
+<a id="contributing"></a>
 
 Your contributions are what make Astral shine! For more information, see the [CONTRIBUTING.md](CONTRIBUTING.md) file. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- Found an issue?  -->
+## 🐛 Found an issue?
+<a id="found-an-issue"></a>
+
+If you have found an issue with our documentation, please [create an issue](https://github.com/chrismaresca/Astral-AI/issues).
+
+If it's a quick fix, such as a misspelled word or a broken link, feel free to skip creating an issue.
+Go ahead and create a [pull request](https://github.com/chrismaresca/Astral-AI/pulls) with the solution. 🚀
+
+Or you can [contact Chris](#contact) directly if you prefer.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- LICENSE -->
 
@@ -194,6 +217,9 @@ Distributed under the MIT License. See the [LICENSE](LICENSE) file for more info
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTACT -->
+
 
 <!-- CONTACT -->
 
